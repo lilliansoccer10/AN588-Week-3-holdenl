@@ -1,0 +1,74 @@
+---
+title: "Titis in the Midst" 
+author: "By: Lillian Holden"
+subtitle: "Homework Assignment 2"
+date: "Final Homework Due October 4, 2023"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: yes
+  
+---
+
+```{r titimonkey, echo=FALSE, fig.align='center', fig.cap='Beautiful Titi Monkeys!', out.width='75%'}
+knitr::include_graphics('~/Documents/GitHub/AN588-Week-3-holdenl/logo.jpeg')
+```
+
+#### Five Challenges 
+1. I started to do all of the math by hand, but I had a hard time figuring out what X! meant. I am pretty sure I learned it at some point, but learning that it is a factorial value was something that I had to learn how to calculate.
+2. Once I figured out all of the answers by hand, I had a hard time figuring out what codes to use in order to get those answers. I found a helpful webpage that described various posisson distribution codes and their various uses. This really helped me - once I found this website, I was able to easily figure out every single problem.
+3. I had a hard time graphing the simulated plot, but I assigned the simulated data to a variable "B," which helped me display that dataset into a graph. 
+4. "Xlim" also gave me a hard time determining where to put that in the equation. I also had a hard time determining what the 0-30 values were. I think they are the number of calls. 
+5. I had a very hard time figuring out how to add an image to my knit file. I got help by using the internet and looking through the various textbooks. 
+
+
+#### Load the following pacakges: 
+```{r}
+library(manipulate)
+library(prettydoc)
+```
+
+
+### What is the probability that she will hear more than 8 calls during any given session?
+```{r}
+ppois(8,15,lower.tail = FALSE) #ppois can be used to determine greater than a select number of calls by using lower.tail = FALSE
+```
+
+
+### What is the probability that she will hear no calls in a session?
+```{r}
+dpois(0,15) #dpois can be used to determine the probability of an exact number of calls 
+```
+
+
+### What is the probability that she will hear exactly 3 calls in a session?
+```{r}
+dpois(3,15) #use dpois to determine the pprobability of exactly 3 calls
+```
+
+
+### Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.
+```{r}
+x <- 0:30 #this is the range
+l = 15 #this is the mean
+probset <- dpois(x = x, lambda = l)
+barplot(probset, names.arg = x, space = 0, xlab = "Number of Calls", ylab = "Probability", main = "Probability Mass Function") 
+```
+
+
+### Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
+```{r}
+B <- rpois(104,15) #rpois can be used to simulate a data set
+B
+```
+
+
+### Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. 
+```{r}
+hist(B, main = "2 Years of Morning Sessions", xlim = c(0,30), xlab = "Number of Calls", breaks = 0:30, ylab = "Probability")
+```
+
+
+### How does your histogram compare to the shape of the probability mass function you plotted above?
+The frequency is highest in the center, for the most part, just as the mass function plotted above is. This makes sense seeming how the approximate mean is 15. As the number of calls get closer to 15, the probability increases. However, there seems to be no data near the beginning of the x-axis as well as near the end. This is most likely because the probability here is negligible.  
